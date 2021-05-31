@@ -6,7 +6,7 @@
 #include <fcntl.h>
 #include <time.h>
 
-//If you are to change any of these, shape CAPACITIES accordingly
+//If you are to change any of these, shape capacities[][] accordingly
 #define NUM_OF_BRANDS NUM_OF_DEALERS
 #define NUM_OF_SEMS NUM_OF_DEALERS
 #define NUM_OF_DEALERS 4
@@ -28,7 +28,7 @@ void cleanup();
 char* get_time();
 
 //==================================
-
+char* resident_names[] = {"Polat alemdar", "Heisenberg", "He-man", "Spaydi", "İskeletor", "Mario", "Rina Sawayama", "Charli XCX", "Sansar Salvo", "Charlie Cunningham"};
 int prices[NUM_OF_DEALERS][NUM_OF_SEGMENTS]; //initial prices, refer to struct car->price for the car prices later.
 int capacities[NUM_OF_DEALERS][NUM_OF_SEGMENTS] = {
     {2, 2, 2},
@@ -47,6 +47,7 @@ char* rep_lock_names[NUM_OF_DEALERS];
 char* inv_lock_names[NUM_OF_DEALERS];
 
 sem_t* initialized; //Indicates that dealers and representatives are initialized
+int num_of_residents_done = 0;
 //==================================
 
 struct rep_info {
@@ -94,19 +95,17 @@ void* dealer(void* arg) {
     sem_post(initialized);
 
     int update_time = rand() % 30;
-    int update_time_2 = rand() % 30; //TODO: ensure two are not the same
+    int update_time_2 = 1 + rand() % (30 - update_time); //TODO: ensure two are not the same
     
     //update prices twice a month (twice in 30 seconds)
-    if (update_time < update_time_2) {
+    while (num_of_residents_done != NUM_OF_RESIDENTS) {
         sleep(update_time);
         update_prices(id);
         sleep(update_time_2);
         update_prices(id);
-    } else {
-        sleep(update_time_2);
-        update_prices(id);
-        sleep(update_time);
-        update_prices(id);
+        sleep(30 - update_time - update_time_2);
+        update_time = rand() % 30;
+        update_time_2 = 1 + rand() % (30 - update_time); 
     }
 
     pthread_exit(NULL);
@@ -148,7 +147,7 @@ void* resident(void* arg) {
         curr_priority_segment = priorities[curr_priority_index]->segment;
         
         
-        sleep(3 + rand() % 5); //this is not a good way of doing
+        sleep(3 + rand() % 5); //this is not a good way of doing this
         printf("%s | I'm %s and going to buy %c-segment car at dealer %d.\n", get_time(), *name , curr_priority_segment+65, curr_priority_brand);
         sem_wait(rep_locks[curr_priority_brand]); //naming may be confusing, consider changing rep_locks to dealer_locks
         sem_wait(inv_locks[curr_priority_brand]);
@@ -161,42 +160,42 @@ void* resident(void* arg) {
                 break;
             }
         }
-        sleep(1 + rand() % 5);
+        sleep(1); //Time spent on buying
         if (can_buy) {
-            printf("%s | I'm %s and I bought my car!\n", get_time(), *name);
+            printf("%s | I'm %s and I bought %c-Segment car at dealer %d!!!\n", get_time(), *name, curr_priority_segment + 65, curr_priority_brand);
             sem_post(rep_locks[curr_priority_brand]);
             sem_post(inv_locks[curr_priority_brand]);
             break;
         } else if (!can_buy && num_tried == 0) {
             num_tried++;
-            printf("%s | I'm %s and I'm couldn't buy a %c-segment car at dealer %d, this was my first try!\n", get_time(), *name, curr_priority_segment + 65, curr_priority_brand);
+            printf("%s | I'm %s and I'm couldn't buy a %c-segment car at dealer %d, this was my first try.\n", get_time(), *name, curr_priority_segment + 65, curr_priority_brand);
         } else if (!can_buy && num_tried == 1) {
             num_tried = 0;
             curr_priority_index++;
-            printf("%s | I'm %s and I'm giving up on %c-segment car at dealer %d.\n", get_time(), *name, curr_priority_segment + 65, curr_priority_brand);
+            printf("%s | I'm %s and I'm giving up on %c-segment car at dealer %d :(\n", get_time(), *name, curr_priority_segment + 65, curr_priority_brand);
         }
         sem_post(rep_locks[curr_priority_brand]); //naming may be confusing, consider changing rep_locks to dealer_locks
         sem_post(inv_locks[curr_priority_brand]);
-        if (!can_buy) {
+        if (!can_buy && i != (NUM_OF_PRIORITIES * 2)) {
             sleep(1 + rand() % 5);
         }  
     }
-    
+    num_of_residents_done = num_of_residents_done + 1;
     pthread_exit(NULL);
 }
 
 void initialize_vars() {
     //Semaphore names
     //for representatives
-    for (int i = 0; i < NUM_OF_SEMS; i++) {
+    for (int i = 0; i < NUM_OF_SEMS % 1000; i++) {
         char* new_name = malloc(8);
-        sprintf(new_name, "YIGIT%03d", i % 1000);
+        sprintf(new_name, "YIGIT%03d", i);
         rep_lock_names[i] = new_name;
     }
     //for inventories
-    for (int i = 0; i < NUM_OF_SEMS; i++) {
+    for (int i = 0; i < NUM_OF_SEMS % 1000; i++) {
         char* new_name = malloc(8);
-        sprintf(new_name, "CANBI%03d", i % 1000);
+        sprintf(new_name, "CANBI%03d", i);
         inv_lock_names[i] = new_name;
     }
 
@@ -271,7 +270,7 @@ char* get_time() {
 }
 
 int main() {
-    //check if constants are not absurdly large
+    //TODO: Check if constants are not absurdly large
 
     initialize_vars();
     //debug();
@@ -293,39 +292,33 @@ int main() {
         }
     }
 
-    char* resident_names[] = {"Polat alemdar", "Heisenberg", "He-man", "Spaydi", "İskeletor", "Mario"};
-    int dealer_ids[] = {0, 1, 2, 3};
-
     pthread_t res_threads[NUM_OF_RESIDENTS];
     pthread_t dealer_threads[NUM_OF_DEALERS];
     //IMPORTANT: Representative threads are created at dealer()
     
+    int* new_id = 0;
     for (int i = 0; i < NUM_OF_DEALERS; i++) {
-        pthread_create(&dealer_threads[i], NULL, dealer, &dealer_ids[i]);
+        new_id = malloc(sizeof(int));
+        *new_id = i;
+        pthread_create(&dealer_threads[i], NULL, dealer, new_id); //TODO: assign dealer id depending on "i" here
     }
     for (int i = 0; i < NUM_OF_DEALERS; i++) {
         sem_wait(initialized);
     }
     for (int i = 0; i < NUM_OF_RESIDENTS; i++) {
-        pthread_create(&res_threads[i], NULL, resident, &resident_names[i]);
+        pthread_create(&res_threads[i], NULL, resident, &resident_names[i % (sizeof(resident_names) / sizeof(*resident_names))]);
     }
 
+    
 
-    for (int i = 0; i < NUM_OF_DEALERS; i++) {
-        pthread_join(dealer_threads[i], NULL);
-    }
     for (int i = 0; i < NUM_OF_RESIDENTS; i++) {
         pthread_join(res_threads[i], NULL);
     }
+    for (int i = 0; i < NUM_OF_DEALERS; i++) {
+        //pthread_join(dealer_threads[i], NULL);
+        pthread_cancel(dealer_threads[i]);
+    }
+
     cleanup();
     return 0;
 }
-
-/*
-TODO:
--Dealer price update priority before residents checking prices (?)
--Put various sleep() commands
--Create a more meaningful flow of time
--Make sure constants are fully done
--More names for residents and more meaningful debug texts
-*/
