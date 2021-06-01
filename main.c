@@ -6,11 +6,10 @@
 #include <fcntl.h>
 #include <time.h>
 
-//If you are to change any of these, shape capacities[][] accordingly
 #define NUM_OF_BRANDS NUM_OF_DEALERS
 #define NUM_OF_SEMS NUM_OF_DEALERS
-#define NUM_OF_DEALERS 4
-#define NUM_OF_SEGMENTS 3
+#define NUM_OF_DEALERS 4 //Not subject to change
+#define NUM_OF_SEGMENTS 3 //Not subject to change
 #define NUM_OF_REPS 2
 #define NUM_OF_PRIORITIES 4
 #define NUM_OF_RESIDENTS 6
@@ -66,13 +65,23 @@ struct car{
 };
 
 void update_prices(int* dealer_id) {
-    int lucky_number;
-    printf("%s | Dealer %d is updating the prices!\n", get_time(), *dealer_id);
+    int percentage = (rand() % 41) - 20; //-20, 20
+    int new_price;
+    int init_price;
+    //printf("%s | Dealer %d is updating the prices!\n", get_time(), *dealer_id);
     for (int i = 0; i < NUM_OF_SEGMENTS; i++) {
-        lucky_number = 200000 + rand() % 300000;
+        init_price = dealers[*dealer_id][i][0]->price;
+        new_price = init_price * (100.0 + percentage) / 100;
+        //if new prices exceed a 200k-500k interval, set the price on the edges
+        if (new_price > 500000 ) {
+            new_price = 500000;
+        } else if (new_price < 200000) {
+            new_price = 200000;
+        }
+        printf("%s | Dealer %d is updating %c-segment car prices from %d to %d.\n", get_time(), *dealer_id, i+65, init_price, new_price);
         for (int j = 0; j < capacities[*dealer_id][i]; j++) {
             struct car* car = dealers[*dealer_id][i][j];
-            car->price = lucky_number;
+            car->price = new_price;
         }
     }  
 }
@@ -91,7 +100,8 @@ void* dealer(void* arg) {
     for (int i = 0; i < 2; i++) {
         pthread_join(rep_tids[i], NULL);
     }
-    printf("Dealer %d is done initializing with it's representatives.\n", *id);
+    //This printf statement is not dynamic.
+    printf("Dealer %d is done initializing. Prices: %c-Segment -> %d, %c-Segment -> %d, %c-Segment -> %d\n", *id, 'A', prices[*id][0], 'B', prices[*id][1], 'C', prices[*id][2]);
     sem_post(initialized);
 
     int update_time = rand() % 30;
@@ -133,7 +143,7 @@ void* resident(void* arg) {
         new_priority->segment = rand() % NUM_OF_SEGMENTS;
         priorities[i] = new_priority;
     }
-    printf("Resident %s is initialized.\n", *name);
+    printf("Resident %s is initialized with a loan of %d.\n", *name, money);
 
     int num_tried = 0;
     int curr_priority_index = 0;
@@ -271,7 +281,7 @@ char* get_time() {
 
 int main() {
     //TODO: Check if constants are not absurdly large
-
+    printf("\n=========================\n");
     initialize_vars();
     //debug();
     

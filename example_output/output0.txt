@@ -1,0 +1,108 @@
+Dealer 0 is being initialized...
+Representative Yigit0 at dealer 0 is being initialized...
+Dealer 3 is being initialized...
+Representative Can0 at dealer 0 is being initialized...
+Dealer 1 is being initialized...
+Dealer 2 is being initialized...
+Representative Yigit1 at dealer 1 is being initialized...
+Representative Yigit3 at dealer 3 is being initialized...
+Representative Yigit2 at dealer 2 is being initialized...
+Dealer 0 is done initializing. Prices: A-Segment -> 216807, B-Segment -> 375249, C-Segment -> 450073
+Representative Can1 at dealer 1 is being initialized...
+Representative Can3 at dealer 3 is being initialized...
+Dealer 1 is done initializing. Prices: A-Segment -> 243658, B-Segment -> 408930, C-Segment -> 311272
+Representative Can2 at dealer 2 is being initialized...
+Dealer 3 is done initializing. Prices: A-Segment -> 437709, B-Segment -> 264440, C-Segment -> 238165
+Dealer 2 is done initializing. Prices: A-Segment -> 427544, B-Segment -> 350878, C-Segment -> 377923
+Initializing resident Polat alemdar...
+Resident Polat alemdar is initialized with a loan of 500000.
+Initializing resident Heisenberg...
+Resident Heisenberg is initialized with a loan of 400000.
+Initializing resident İskeletor...
+Resident İskeletor is initialized with a loan of 400000.
+Initializing resident He-man...
+Resident He-man is initialized with a loan of 300000.
+Initializing resident Spaydi...
+Resident Spaydi is initialized with a loan of 400000.
+Initializing resident Mario...
+Resident Mario is initialized with a loan of 500000.
+14:54:25 | I'm Polat alemdar and going to buy A-segment car at dealer 1.
+14:54:26 | I'm Heisenberg and going to buy C-segment car at dealer 2.
+14:54:26 | I'm Polat alemdar and I bought A-Segment car at dealer 1!!!
+14:54:27 | I'm İskeletor and going to buy B-segment car at dealer 0.
+14:54:27 | I'm Heisenberg and I bought C-Segment car at dealer 2!!!
+14:54:28 | I'm Spaydi and going to buy A-segment car at dealer 2.
+14:54:28 | I'm İskeletor and I bought B-Segment car at dealer 0!!!
+14:54:28 | I'm He-man and going to buy B-segment car at dealer 1.
+14:54:29 | I'm Mario and going to buy B-segment car at dealer 1.
+14:54:29 | Dealer 3 is updating A-segment car prices from 437709 to 485856.
+14:54:29 | Dealer 3 is updating B-segment car prices from 264440 to 293528.
+14:54:29 | Dealer 3 is updating C-segment car prices from 238165 to 264363.
+14:54:29 | I'm He-man and I'm couldn't buy a B-segment car at dealer 1, this was my first try.
+14:54:29 | I'm Spaydi and I'm couldn't buy a A-segment car at dealer 2, this was my first try.
+14:54:30 | I'm Mario and I bought B-Segment car at dealer 1!!!
+14:54:32 | Dealer 2 is updating A-segment car prices from 427544 to 474573.
+14:54:32 | Dealer 2 is updating B-segment car prices from 350878 to 389474.
+14:54:32 | Dealer 2 is updating C-segment car prices from 377923 to 419494.
+14:54:34 | Dealer 0 is updating A-segment car prices from 216807 to 201630.
+14:54:34 | Dealer 0 is updating B-segment car prices from 375249 to 348981.
+14:54:34 | Dealer 0 is updating C-segment car prices from 450073 to 418567.
+14:54:37 | I'm Spaydi and going to buy A-segment car at dealer 2.
+14:54:37 | I'm He-man and going to buy B-segment car at dealer 1.
+14:54:38 | I'm Spaydi and I'm giving up on A-segment car at dealer 2 :(
+14:54:38 | I'm He-man and I'm giving up on B-segment car at dealer 1 :(
+14:54:43 | Dealer 0 is updating A-segment car prices from 201630 to 219776.
+14:54:43 | Dealer 0 is updating B-segment car prices from 348981 to 380389.
+14:54:43 | Dealer 0 is updating C-segment car prices from 418567 to 456238.
+14:54:45 | Dealer 2 is updating A-segment car prices from 474573 to 500000.
+14:54:45 | Dealer 2 is updating B-segment car prices from 389474 to 436210.
+14:54:45 | Dealer 2 is updating C-segment car prices from 419494 to 469833.
+14:54:46 | I'm He-man and going to buy B-segment car at dealer 0.
+14:54:47 | I'm He-man and I'm couldn't buy a B-segment car at dealer 0, this was my first try.
+14:54:49 | Dealer 1 is updating A-segment car prices from 243658 to 224165.
+14:54:49 | Dealer 1 is updating B-segment car prices from 408930 to 376215.
+14:54:49 | Dealer 1 is updating C-segment car prices from 311272 to 286370.
+14:54:49 | Dealer 3 is updating A-segment car prices from 485856 to 388684.
+14:54:49 | Dealer 3 is updating B-segment car prices from 293528 to 234822.
+14:54:49 | Dealer 3 is updating C-segment car prices from 264363 to 211490.
+14:54:49 | I'm Spaydi and going to buy C-segment car at dealer 0.
+14:54:50 | I'm Spaydi and I'm couldn't buy a C-segment car at dealer 0, this was my first try.
+14:54:52 | Dealer 1 is updating A-segment car prices from 224165 to 253306.
+14:54:52 | Dealer 1 is updating B-segment car prices from 376215 to 425122.
+14:54:52 | Dealer 1 is updating C-segment car prices from 286370 to 323598.
+14:54:55 | I'm He-man and going to buy B-segment car at dealer 0.
+14:54:56 | I'm He-man and I'm giving up on B-segment car at dealer 0 :(
+14:54:57 | I'm Spaydi and going to buy C-segment car at dealer 0.
+14:54:58 | I'm Spaydi and I'm giving up on C-segment car at dealer 0 :(
+14:55:00 | Dealer 0 is updating A-segment car prices from 219776 to 215380.
+14:55:00 | Dealer 0 is updating B-segment car prices from 380389 to 372781.
+14:55:00 | Dealer 3 is updating A-segment car prices from 388684 to 392570.
+14:55:00 | Dealer 3 is updating B-segment car prices from 234822 to 237170.
+14:55:00 | Dealer 3 is updating C-segment car prices from 211490 to 213604.
+14:55:00 | Dealer 0 is updating C-segment car prices from 456238 to 447113.
+14:55:04 | I'm He-man and going to buy A-segment car at dealer 2.
+14:55:05 | I'm He-man and I'm couldn't buy a A-segment car at dealer 2, this was my first try.
+14:55:06 | I'm Spaydi and going to buy A-segment car at dealer 1.
+14:55:07 | I'm Spaydi and I bought A-Segment car at dealer 1!!!
+14:55:10 | Dealer 3 is updating A-segment car prices from 392570 to 372941.
+14:55:10 | Dealer 3 is updating B-segment car prices from 237170 to 225311.
+14:55:10 | Dealer 3 is updating C-segment car prices from 213604 to 202923.
+14:55:12 | I'm He-man and going to buy A-segment car at dealer 2.
+14:55:13 | I'm He-man and I'm giving up on A-segment car at dealer 2 :(
+14:55:16 | Dealer 1 is updating A-segment car prices from 253306 to 253306.
+14:55:16 | Dealer 1 is updating B-segment car prices from 425122 to 425122.
+14:55:16 | Dealer 1 is updating C-segment car prices from 323598 to 323598.
+14:55:16 | Dealer 0 is updating A-segment car prices from 215380 to 213226.
+14:55:16 | Dealer 0 is updating B-segment car prices from 372781 to 369053.
+14:55:16 | Dealer 0 is updating C-segment car prices from 447113 to 442641.
+14:55:19 | Dealer 2 is updating A-segment car prices from 500000 to 500000.
+14:55:19 | Dealer 2 is updating B-segment car prices from 436210 to 500000.
+14:55:19 | Dealer 2 is updating C-segment car prices from 469833 to 500000.
+14:55:20 | Dealer 1 is updating A-segment car prices from 253306 to 207710.
+14:55:20 | Dealer 1 is updating B-segment car prices from 425122 to 348600.
+14:55:20 | Dealer 1 is updating C-segment car prices from 323598 to 265350.
+14:55:21 | I'm He-man and going to buy A-segment car at dealer 0.
+14:55:22 | Dealer 2 is updating A-segment car prices from 500000 to 430000.
+14:55:22 | Dealer 2 is updating B-segment car prices from 500000 to 430000.
+14:55:22 | Dealer 2 is updating C-segment car prices from 500000 to 430000.
+14:55:22 | I'm He-man and I bought A-Segment car at dealer 0!!!
