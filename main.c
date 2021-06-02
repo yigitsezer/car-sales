@@ -134,7 +134,7 @@ void* representative(void* arg) {
 void* resident(void* arg) {
     char **name = (char **)arg;
     struct priority** priorities = (struct priority**) malloc(sizeof(struct priority*) * NUM_OF_PRIORITIES);
-    int money = LOAN_AMOUNTS[rand() % 5]; //5 refers to the number of elements in LOAN_AMOUNTS, consider assigning dynamically
+    int money = LOAN_AMOUNTS[rand() % 4]; //4 refers to the number of elements in LOAN_AMOUNTS, consider assigning dynamically
     printf("Initializing resident %s...\n", *name);
     //initialize priorities
     for (int i = 0; i < NUM_OF_PRIORITIES; i++) {
